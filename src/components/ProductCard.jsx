@@ -35,11 +35,12 @@ export default function ProductCard({ product, variant = "default" }) {
     : 0;
 
   const big = variant === "big";
+  const compact = variant === "compact";
 
   return (
-    <div className={`group bg-cream-100 hover:bg-white border border-transparent hover:border-ink-200 rounded-2xl overflow-hidden flex flex-col transition ${big ? "h-full" : ""}`}>
+    <div className={`group bg-white border border-ink-200 hover:border-coral-500 rounded-2xl overflow-hidden flex flex-col transition ${big ? "h-full" : ""}`}>
       {/* Image area */}
-      <div className={`relative bg-white flex items-center justify-center overflow-hidden ${big ? "aspect-[4/5] md:aspect-auto md:flex-1 md:min-h-[280px]" : "aspect-square"}`}>
+      <div className={`relative bg-cream-100 flex items-center justify-center overflow-hidden ${big ? "aspect-[4/5] md:aspect-auto md:flex-1 md:min-h-[280px]" : "aspect-square"}`}>
         {product.image_url ? (
           <img
             src={product.image_url}
@@ -49,7 +50,7 @@ export default function ProductCard({ product, variant = "default" }) {
           />
         ) : (
           <div className="text-ink-200">
-            <Icons.ShoppingBag size={big ? 100 : 48} strokeWidth={1.2} />
+            <Icon size={big ? 100 : compact ? 40 : 48} strokeWidth={1.2} />
           </div>
         )}
 
@@ -88,54 +89,54 @@ export default function ProductCard({ product, variant = "default" }) {
       </div>
 
       {/* Body */}
-      <div className={`p-3 sm:p-4 flex flex-col gap-1 ${big ? "" : ""}`}>
-        <div className="text-[10px] font-semibold uppercase tracking-wide text-ink-500">
+      <div className={`flex flex-col gap-1 ${compact ? "p-2.5" : "p-3 sm:p-4"}`}>
+        <div className={`font-semibold uppercase tracking-wide text-ink-500 ${compact ? "text-[9px]" : "text-[10px]"}`}>
           {categoryLabel(product.category)}
         </div>
-        <h3 className={`font-bold text-ink-900 leading-snug line-clamp-2 ${big ? "text-lg" : "text-sm"}`}>
+        <h3 className={`font-bold text-ink-900 leading-snug line-clamp-2 ${big ? "text-lg" : compact ? "text-xs min-h-[2.4em]" : "text-sm"}`}>
           {product.name}
         </h3>
-        {product.unit && (
+        {product.unit && !compact && (
           <div className="text-xs text-ink-500">{product.unit}</div>
         )}
 
-        <div className="mt-2 flex items-end justify-between gap-2">
+        <div className={`mt-1.5 flex items-end justify-between gap-2 ${compact ? "" : "mt-2"}`}>
           <div className="leading-tight">
-            <div className={`font-extrabold text-coral-500 ${big ? "text-2xl" : "text-base"}`}>
+            <div className={`font-extrabold text-coral-500 ${big ? "text-2xl" : compact ? "text-sm" : "text-base"}`}>
               AED {product.price.toFixed(2)}
             </div>
             {hasDiscount && (
-              <div className="text-xs text-ink-400 line-through">
+              <div className={`text-ink-400 line-through ${compact ? "text-[10px]" : "text-xs"}`}>
                 AED {product.compare_price.toFixed(2)}
               </div>
             )}
           </div>
 
           {inCart ? (
-            <div className="flex items-center bg-coral-500 text-white rounded-full overflow-hidden">
+            <div className={`flex items-center bg-coral-500 text-white rounded-full overflow-hidden ${compact ? "scale-90 origin-right" : ""}`}>
               <button
                 onClick={() => setQty(product.id, inCart.qty - 1)}
-                className="w-8 h-8 hover:bg-coral-600 flex items-center justify-center"
+                className="w-7 h-7 hover:bg-coral-600 flex items-center justify-center"
                 aria-label="Decrease"
               >
-                <Minus size={14} />
+                <Minus size={12} />
               </button>
-              <span className="px-2 text-sm font-bold min-w-[28px] text-center">{inCart.qty}</span>
+              <span className="px-1.5 text-xs font-bold min-w-[24px] text-center">{inCart.qty}</span>
               <button
                 onClick={() => setQty(product.id, inCart.qty + 1)}
-                className="w-8 h-8 hover:bg-coral-600 flex items-center justify-center"
+                className="w-7 h-7 hover:bg-coral-600 flex items-center justify-center"
                 aria-label="Increase"
               >
-                <Plus size={14} />
+                <Plus size={12} />
               </button>
             </div>
           ) : (
             <button
               onClick={() => add(product)}
               disabled={!product.in_stock}
-              className="bg-coral-500 hover:bg-coral-600 disabled:bg-ink-200 text-white font-bold text-xs px-4 py-2 rounded-full flex items-center gap-1 whitespace-nowrap"
+              className={`bg-coral-500 hover:bg-coral-600 disabled:bg-ink-200 text-white font-bold rounded-full flex items-center gap-1 whitespace-nowrap ${compact ? "text-[10px] px-2.5 py-1.5" : "text-xs px-4 py-2"}`}
             >
-              <Plus size={14} /> Add
+              <Plus size={compact ? 12 : 14} /> Add
             </button>
           )}
         </div>

@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Search, ShoppingBag, MapPin, Menu, X } from "lucide-react";
 import { useCart } from "../cart.jsx";
 import { STORE } from "../config.js";
+import MegaMenuBar from "./MegaMenuBar.jsx";
 
 export default function Header() {
   const { count } = useCart();
@@ -107,6 +108,9 @@ export default function Header() {
           </nav>
         </div>
       )}
+
+      {/* Department mega-menu bar (Lulu-style) */}
+      <MegaMenuBar />
     </header>
   );
 }

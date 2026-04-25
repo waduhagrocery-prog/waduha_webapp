@@ -1,36 +1,62 @@
 import { Link } from "react-router-dom";
+import { useMemo } from "react";
 import {
   ArrowRight, Truck, Zap, ShoppingBag, Star, ShieldCheck, Award, Clock,
-  Apple as AppleIcon, Smartphone, Gift, Tag, Sparkles,
+  Apple as AppleIcon, Smartphone, Gift, Tag, Sparkles, MapPin,
 } from "lucide-react";
 import * as Icons from "lucide-react";
 import products from "../products.json";
-import { CATEGORIES, COMING_SOON_CATEGORIES, STORE } from "../config.js";
+import { CATEGORIES, ALL_DEPARTMENTS, STORE } from "../config.js";
 import ProductCard from "../components/ProductCard.jsx";
+import ProductRow from "../components/ProductRow.jsx";
+import PromoBanners from "../components/PromoBanners.jsx";
+import BrandShowcase from "../components/BrandShowcase.jsx";
+import ComingSoonRow from "../components/ComingSoonRow.jsx";
 
-// Hero food image (Unsplash CDN — fresh produce flatlay)
 const HERO_IMG =
   "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80";
 
+// Helper: shuffle by category, with fallback
+const byCat = (cat, n = 12) => products.filter((p) => p.category === cat).slice(0, n);
+const byKeyword = (kw, n = 12) => {
+  const re = new RegExp(kw, "i");
+  return products.filter((p) => re.test(p.name)).slice(0, n);
+};
+
 export default function Home() {
-  // Featured = first 7 products for the bento grid
-  const featured = products.slice(0, 7);
+  // Featured = top items for the bento grid
+  const featured = useMemo(() => products.slice(0, 7), []);
   const big = featured[0];
   const small = featured.slice(1, 7);
 
-  // Deals = products with compare_price > price; fallback to next slice
-  const deals =
-    products.filter((p) => p.compare_price && p.compare_price > p.price).slice(0, 6);
-  const dealsRow = deals.length ? deals : products.slice(8, 14);
+  // Topical product groups
+  const deals = useMemo(() =>
+    products.filter((p) => p.compare_price && p.compare_price > p.price).slice(0, 12), []);
+  const topDeals = deals.length ? deals : products.slice(0, 12);
 
-  // New arrivals = next slice
-  const newArrivals = products.slice(14, 20);
+  const bestSellers   = useMemo(() => products.slice(20, 32), []);
+  const newArrivals   = useMemo(() => products.slice(32, 44), []);
+  const beverages     = useMemo(() => byCat("beverages",      12), []);
+  const snacks        = useMemo(() => byCat("snacks",         12), []);
+  const spices        = useMemo(() => byCat("spices_masala",  12), []);
+  const rice          = useMemo(() => byCat("rice_grains",    12), []);
+  const dairy         = useMemo(() => byCat("dairy_eggs",     12), []);
+  const bakery        = useMemo(() => byCat("bakery",         12), []);
+  const frozen        = useMemo(() => byCat("frozen",         12), []);
+  const household     = useMemo(() => byCat("household",      12), []);
+  const fresh         = useMemo(() => byCat("fruits_vegetables", 12), []);
+  const indianFood    = useMemo(() => {
+    const a = byKeyword("masala|biryani|chapati|paratha|atta|basmati|dal", 12);
+    return a.length >= 6 ? a : spices.concat(rice).slice(0, 12);
+  }, [spices, rice]);
+  const budgetBuys    = useMemo(() => products.filter(p => p.price < 5).slice(0, 12), []);
+  const premiumPicks  = useMemo(() => [...products].sort((a,b) => b.price - a.price).slice(0, 12), []);
 
   return (
     <main>
       {/* ─── HERO ─────────────────────────────────────────────── */}
       <section className="bg-cream-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12 sm:py-16 grid lg:grid-cols-2 gap-10 items-center">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <div className="inline-flex items-center gap-2 bg-coral-500/10 text-coral-700 font-semibold px-3 py-1.5 rounded-full text-xs">
               <span className="w-2 h-2 rounded-full bg-coral-500 live-dot" />
@@ -38,30 +64,19 @@ export default function Home() {
             </div>
             <h1 className="mt-5 text-5xl sm:text-6xl font-extrabold text-ink-900 leading-[1.05] font-display">
               Everything for your home,
-              <br />
-              <span className="text-coral-500">delivered fast.</span>
+              <br /><span className="text-coral-500">delivered fast.</span>
             </h1>
             <p className="mt-5 text-ink-500 text-base sm:text-lg max-w-md leading-relaxed">
-              {STORE.name} — your neighborhood store in Al Karama. From fresh
-              groceries to daily essentials, delivered to your door in minutes.
-              And we're just getting started.
+              {STORE.name} — your neighborhood store in Al Karama. Groceries today, everything tomorrow.
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
-              <Link
-                to="/products"
-                className="bg-coral-500 hover:bg-coral-600 text-white font-semibold px-6 py-3 rounded-full text-sm flex items-center gap-2 shadow-soft"
-              >
+              <Link to="/products" className="bg-coral-500 hover:bg-coral-600 text-white font-semibold px-6 py-3 rounded-full text-sm flex items-center gap-2 shadow-soft">
                 Shop Now <ArrowRight size={16} />
               </Link>
-              <Link
-                to="/contact"
-                className="bg-white border border-ink-200 hover:border-ink-400 text-ink-900 font-semibold px-6 py-3 rounded-full text-sm"
-              >
+              <Link to="/contact" className="bg-white border border-ink-200 hover:border-ink-400 text-ink-900 font-semibold px-6 py-3 rounded-full text-sm">
                 Our Story
               </Link>
             </div>
-
-            {/* Trust mini-cards */}
             <div className="mt-8 grid grid-cols-3 gap-2 max-w-lg">
               {[
                 { icon: Truck, title: "Free Delivery", sub: "In Al Karama" },
@@ -80,19 +95,11 @@ export default function Home() {
               ))}
             </div>
           </div>
-
-          {/* Hero image */}
           <div className="relative">
             <div className="relative rounded-3xl overflow-hidden shadow-card aspect-[4/3] bg-ink-100">
-              <img
-                src={HERO_IMG}
-                alt="Fresh groceries"
-                className="w-full h-full object-cover"
-                onError={(e) => (e.currentTarget.style.display = "none")}
-              />
+              <img src={HERO_IMG} alt="Fresh groceries" className="w-full h-full object-cover" onError={(e)=>(e.currentTarget.style.display="none")} />
               <div className="absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-transparent" />
             </div>
-            {/* Live activity card */}
             <div className="absolute bottom-5 left-5 sm:left-7 bg-white rounded-2xl shadow-card border border-ink-200 px-4 py-3 max-w-[230px]">
               <div className="flex items-center gap-2 text-xs font-semibold text-leaf-600">
                 <span className="w-2 h-2 rounded-full bg-leaf-500 live-dot" />
@@ -106,64 +113,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── PROMO STRIP (3 banners, Lulu-style) ──────────────── */}
-      <section className="bg-cream-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12 grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
-          <PromoCard
-            label="Deals of the Day"
-            title="Up to 30% off"
-            sub="Daily essentials, refreshed every morning"
-            cta="Shop Deals"
-            to="/products"
-            tone="coral"
-            icon={Tag}
-          />
-          <PromoCard
-            label="Free Delivery"
-            title="In Al Karama"
-            sub="No minimum order. Order anytime."
-            cta="Order Now"
-            to="/products"
-            tone="leaf"
-            icon={Truck}
-          />
-          <PromoCard
-            label="New Arrivals"
-            title="Fresh stock"
-            sub="What's new on our shelves this week"
-            cta="See New"
-            to="/products"
-            tone="ink"
-            icon={Sparkles}
-          />
-        </div>
-      </section>
+      {/* ─── 3 PROMO BANNERS ──────────────────────────────────── */}
+      <PromoBanners />
 
-      {/* ─── CATEGORIES ───────────────────────────────────────── */}
+      {/* ─── TOP DEALS ────────────────────────────────────────── */}
+      <ProductRow
+        title="Top Deals"
+        subtitle="Limited stock at the lowest prices"
+        badge="Hot Deals"
+        badgeColor="coral"
+        icon="Tag"
+        products={topDeals}
+        viewAllTo="/products"
+      />
+
+      {/* ─── CATEGORIES GRID ──────────────────────────────────── */}
       <section className="bg-cream-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-          <div className="flex items-end justify-between mb-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
+          <div className="flex items-end justify-between mb-5">
             <div>
-              <h2 className="text-3xl font-extrabold text-ink-900 font-display">Shop by Category</h2>
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-ink-900 font-display">Shop by Category</h2>
               <p className="text-ink-500 text-sm mt-1">Everything your kitchen needs</p>
             </div>
-            <Link to="/products" className="text-coral-500 hover:text-coral-600 font-semibold text-sm flex items-center gap-1">
-              View All <ArrowRight size={14} />
+            <Link to="/products" className="text-coral-500 hover:text-coral-600 font-semibold text-xs flex items-center gap-1">
+              View All <ArrowRight size={12} />
             </Link>
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
             {CATEGORIES.map((c) => {
               const Icon = Icons[c.icon] || ShoppingBag;
               return (
-                <Link
-                  key={c.key}
-                  to={`/products?cat=${c.key}`}
-                  className="bg-cream-100 hover:bg-white border border-transparent hover:border-ink-200 rounded-2xl p-5 text-center transition group"
-                >
+                <Link key={c.key} to={`/products?cat=${c.key}`}
+                  className="bg-white border border-ink-200 hover:border-coral-500 rounded-2xl p-4 sm:p-5 text-center transition group">
                   <div className={`w-12 h-12 mx-auto rounded-xl ${c.tint} flex items-center justify-center mb-3 group-hover:scale-110 transition`}>
                     <Icon size={22} strokeWidth={2} />
                   </div>
-                  <div className="text-sm font-semibold text-ink-900">{c.label}</div>
+                  <div className="text-xs sm:text-sm font-semibold text-ink-900">{c.label}</div>
                 </Link>
               );
             })}
@@ -171,18 +156,42 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── DEALS OF THE DAY ─────────────────────────────────── */}
+      {/* ─── BENTO: MOST DEMANDED ─────────────────────────────── */}
       <section className="bg-cream-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-7">
+          <div className="flex items-end justify-between mb-4">
+            <div>
+              <div className="inline-flex items-center gap-1.5 text-coral-500 bg-coral-500/10 text-[10px] font-bold uppercase tracking-wider px-2 py-1 rounded-full mb-2">
+                <Star size={11} fill="currentColor" /> Trending in Karama
+              </div>
+              <h2 className="text-xl sm:text-2xl font-extrabold text-ink-900 font-display">Most Demanded Items</h2>
+            </div>
+            <Link to="/products" className="text-coral-500 hover:text-coral-600 font-semibold text-xs flex items-center gap-1">
+              View All <ArrowRight size={12} />
+            </Link>
+          </div>
+          <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
+            <div className="col-span-2 md:col-span-1 md:row-span-2">
+              <ProductCard product={big} variant="big" />
+            </div>
+            {small.map((p) => <ProductCard key={p.id} product={p} variant="compact" />)}
+          </div>
+        </div>
+      </section>
+
+      {/* ─── BRAND SHOWCASE ───────────────────────────────────── */}
+      <BrandShowcase />
+
+      {/* ─── DEALS OF THE DAY (gradient) ──────────────────────── */}
+      <section className="bg-cream-50">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3">
           <div className="bg-gradient-to-r from-coral-500 to-coral-600 rounded-3xl p-6 sm:p-8 text-white">
-            <div className="flex flex-wrap items-end justify-between gap-4 mb-6">
+            <div className="flex flex-wrap items-end justify-between gap-4 mb-5">
               <div>
                 <div className="inline-flex items-center gap-2 bg-white/20 backdrop-blur rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide">
                   <Tag size={12} /> Deals of the Day
                 </div>
-                <h2 className="mt-3 text-3xl sm:text-4xl font-extrabold font-display">
-                  Today's Best Offers
-                </h2>
+                <h2 className="mt-3 text-2xl sm:text-3xl font-extrabold font-display">Today's Best Offers</h2>
                 <p className="text-white/85 text-sm mt-1">Refreshed every morning at 7 AM</p>
               </div>
               <Link to="/products" className="bg-white text-coral-600 hover:bg-cream-50 font-bold text-sm px-5 py-2.5 rounded-full flex items-center gap-2">
@@ -190,96 +199,111 @@ export default function Home() {
               </Link>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-              {dealsRow.slice(0, 6).map((p) => (
-                <ProductCard key={p.id} product={p} />
-              ))}
+              {topDeals.slice(0, 6).map((p) => <ProductCard key={p.id} product={p} variant="compact" />)}
             </div>
           </div>
         </div>
       </section>
 
-      {/* ─── BENTO: MOST DEMANDED ─────────────────────────────── */}
-      <section className="bg-cream-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-          <div className="flex items-end justify-between mb-6">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-coral-500 text-xs font-bold uppercase tracking-wide mb-1">
-                <Star size={12} fill="currentColor" /> Trending in Karama
-              </div>
-              <h2 className="text-3xl font-extrabold text-ink-900 font-display">Most Demanded Items</h2>
-            </div>
-            <Link to="/products" className="text-coral-500 hover:text-coral-600 font-semibold text-sm flex items-center gap-1">
-              View All <ArrowRight size={14} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4">
-            <div className="col-span-2 md:col-span-1 md:row-span-2">
-              <ProductCard product={big} variant="big" />
-            </div>
-            {small.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
-        </div>
-      </section>
+      {/* ─── PRODUCT ROWS BY CATEGORY ─────────────────────────── */}
+      <ProductRow title="Best Sellers"        subtitle="Customer favorites in Al Karama"  badge="Best Sellers" icon="Award"     products={bestSellers}  viewAllTo="/products" />
+      <ProductRow title="New Arrivals"        subtitle="Just landed on our shelves"        badge="Just In"      icon="Sparkles"  badgeColor="leaf" products={newArrivals} viewAllTo="/products" />
+      <ProductRow title="Indian Food Choice"  subtitle="Authentic flavors from home"       badge="Bestselling"  icon="Flame"     products={indianFood}   viewAllTo="/products?cat=spices_masala" />
+      <ProductRow title="Beverages"           subtitle="Soft drinks, juices, water & more" icon="CupSoda"       products={beverages}    viewAllTo="/products?cat=beverages" />
+      <ProductRow title="Snacks & Treats"     subtitle="Chips, biscuits, chocolates"       icon="Cookie"        products={snacks}       viewAllTo="/products?cat=snacks" />
+      <ProductRow title="Cooking Essentials"  subtitle="Spices, masalas & sauces"          icon="Flame"         products={spices}       viewAllTo="/products?cat=spices_masala" />
+      <ProductRow title="Rice & Grains"       subtitle="Pantry staples"                    icon="Wheat"         products={rice}         viewAllTo="/products?cat=rice_grains" />
+      <ProductRow title="Dairy & Eggs"        subtitle="Fresh, daily deliveries"           icon="Milk"          products={dairy}        viewAllTo="/products?cat=dairy_eggs" />
+      <ProductRow title="Fresh Bakery"        subtitle="Bread, pastries & rolls"           icon="Croissant"     products={bakery}       viewAllTo="/products?cat=bakery" />
+      <ProductRow title="Frozen Food"         subtitle="Quick meals & ice creams"          icon="Snowflake"     products={frozen}       viewAllTo="/products?cat=frozen" />
+      <ProductRow title="Cleaning & Household" subtitle="Detergents, cleaners, utility"    icon="SprayCan"      products={household}    viewAllTo="/products?cat=household" />
+      <ProductRow title="Fresh Produce"       subtitle="Fruits & vegetables"               icon="Salad"         products={fresh}        viewAllTo="/products?cat=fruits_vegetables" />
+      <ProductRow title="Budget Buys"         subtitle="Everything under AED 5"            badge="Save More"    icon="Tag"           products={budgetBuys}    viewAllTo="/products" />
+      <ProductRow title="Premium Picks"       subtitle="Top-shelf items for special meals" badge="Premium"      icon="Award"        badgeColor="ink" products={premiumPicks} viewAllTo="/products" />
 
-      {/* ─── NEW ARRIVALS ─────────────────────────────────────── */}
-      <section className="bg-cream-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6">
-          <div className="flex items-end justify-between mb-6">
-            <div>
-              <div className="inline-flex items-center gap-1.5 text-leaf-600 text-xs font-bold uppercase tracking-wide mb-1">
-                <Sparkles size={12} /> Just In
-              </div>
-              <h2 className="text-3xl font-extrabold text-ink-900 font-display">New Arrivals</h2>
-            </div>
-            <Link to="/products" className="text-coral-500 hover:text-coral-600 font-semibold text-sm flex items-center gap-1">
-              View All <ArrowRight size={14} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3 sm:gap-4">
-            {newArrivals.map((p) => (
-              <ProductCard key={p.id} product={p} />
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ─── COMING SOON CATEGORIES (future expansion) ────────── */}
-      <section className="bg-cream-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
-          <div className="bg-cream-100 rounded-3xl p-6 sm:p-10 border border-ink-200/50">
-            <div className="text-center max-w-xl mx-auto mb-8">
-              <div className="inline-flex items-center gap-1.5 text-coral-500 text-xs font-bold uppercase tracking-wide mb-2">
-                <Gift size={12} /> Coming Soon
-              </div>
-              <h2 className="text-3xl font-extrabold text-ink-900 font-display">More than groceries</h2>
-              <p className="text-ink-500 text-sm mt-2">
-                We're expanding {STORE.name} into your everyday store.
-                Personal care, beauty, baby, electronics — all delivered with the same speed.
-              </p>
-            </div>
-            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-3">
-              {COMING_SOON_CATEGORIES.map((c) => {
-                const Icon = Icons[c.icon] || ShoppingBag;
-                return (
-                  <div key={c.key} className="bg-white border border-dashed border-ink-200 rounded-2xl p-4 text-center opacity-80 hover:opacity-100 transition">
-                    <div className="w-10 h-10 mx-auto rounded-xl bg-ink-100 text-ink-700 flex items-center justify-center mb-2">
-                      <Icon size={18} />
-                    </div>
-                    <div className="text-xs font-semibold text-ink-900">{c.label}</div>
-                    <div className="text-[10px] text-coral-500 font-bold uppercase tracking-wide mt-1">Soon</div>
-                  </div>
-                );
-              })}
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ─── COMING SOON DEPARTMENTS (Lulu-style placeholders) ── */}
+      <ComingSoonRow
+        title="Beauty & Personal Care"
+        subtitle="Skincare, fragrance, grooming"
+        icon="Gem"
+        placeholders={[
+          { name: "Premium Skincare Range",      icon: "Sparkles" },
+          { name: "Designer Fragrances",         icon: "Gem" },
+          { name: "Hair Care Essentials",        icon: "Sparkles" },
+          { name: "Men's Grooming Kits",         icon: "Sparkles" },
+          { name: "Bath & Body",                 icon: "Sparkles" },
+          { name: "Oral Care",                   icon: "Sparkles" },
+        ]}
+      />
+      <ComingSoonRow
+        title="The Baby Store"
+        subtitle="Diapers, formula, baby food, and more"
+        icon="Baby"
+        placeholders={[
+          { name: "Diapers & Wipes",       icon: "Baby" },
+          { name: "Baby Formula",          icon: "Milk" },
+          { name: "Baby Food & Snacks",    icon: "Cookie" },
+          { name: "Bath & Skincare",       icon: "Baby" },
+          { name: "Strollers & Carriers",  icon: "Baby" },
+          { name: "Toys for Toddlers",     icon: "Baby" },
+        ]}
+      />
+      <ComingSoonRow
+        title="Home Appliances"
+        subtitle="Small appliances for every room"
+        icon="WashingMachine"
+        placeholders={[
+          { name: "Kettles & Toasters",        icon: "Lamp" },
+          { name: "Blenders & Mixers",         icon: "Lamp" },
+          { name: "Microwaves & Ovens",        icon: "Lamp" },
+          { name: "Vacuum Cleaners",           icon: "Lamp" },
+          { name: "Air Fryers",                icon: "Lamp" },
+          { name: "Coffee Makers",             icon: "CupSoda" },
+        ]}
+      />
+      <ComingSoonRow
+        title="Mobiles, Tablets & Wearables"
+        subtitle="Latest gadgets coming soon"
+        icon="Smartphone"
+        placeholders={[
+          { name: "Latest Smartphones",     icon: "Smartphone" },
+          { name: "Tablets & iPads",        icon: "Smartphone" },
+          { name: "Smart Watches",          icon: "Smartphone" },
+          { name: "Headphones & Earbuds",   icon: "Smartphone" },
+          { name: "Phone Accessories",      icon: "Smartphone" },
+          { name: "Power Banks",            icon: "Zap" },
+        ]}
+      />
+      <ComingSoonRow
+        title="Toys & Games"
+        subtitle="Fun for all ages"
+        icon="Gamepad2"
+        placeholders={[
+          { name: "Building Blocks",       icon: "Gamepad2" },
+          { name: "Educational Toys",      icon: "Gamepad2" },
+          { name: "Board Games",           icon: "Gamepad2" },
+          { name: "Outdoor Toys",          icon: "Gamepad2" },
+          { name: "Soft Toys",             icon: "Gamepad2" },
+          { name: "Action Figures",        icon: "Gamepad2" },
+        ]}
+      />
+      <ComingSoonRow
+        title="Sports & Fitness"
+        subtitle="Gear up for an active lifestyle"
+        icon="Dumbbell"
+        placeholders={[
+          { name: "Yoga Mats",        icon: "Dumbbell" },
+          { name: "Dumbbells & Weights", icon: "Dumbbell" },
+          { name: "Resistance Bands", icon: "Dumbbell" },
+          { name: "Cycling Gear",     icon: "Dumbbell" },
+          { name: "Running Shoes",    icon: "Dumbbell" },
+          { name: "Sportswear",       icon: "Dumbbell" },
+        ]}
+      />
 
       {/* ─── DARK TRUST SECTION ───────────────────────────────── */}
       <section className="bg-cream-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-12">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-12">
           <div className="bg-ink-900 text-white rounded-3xl px-6 py-12 sm:py-14">
             <div className="text-center max-w-2xl mx-auto">
               <h2 className="text-3xl sm:text-4xl font-extrabold font-display">Why Karama Loves Us</h2>
@@ -307,7 +331,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── APP DOWNLOAD BANNER (Lulu-style) ─────────────────── */}
+      {/* ─── APP DOWNLOAD BANNER ──────────────────────────────── */}
       <section className="bg-cream-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 pb-16">
           <div className="bg-leaf-700 text-white rounded-3xl px-6 sm:px-10 py-10 grid md:grid-cols-2 gap-6 items-center overflow-hidden relative">
@@ -346,28 +370,5 @@ export default function Home() {
         </div>
       </section>
     </main>
-  );
-}
-
-// Promo card component used in the strip below the hero
-function PromoCard({ label, title, sub, cta, to, tone, icon: Icon }) {
-  const tones = {
-    coral: "from-coral-500 to-coral-600 text-white",
-    leaf:  "from-leaf-500 to-leaf-700 text-white",
-    ink:   "from-ink-900 to-ink-700 text-white",
-  };
-  return (
-    <Link
-      to={to}
-      className={`bg-gradient-to-br ${tones[tone]} rounded-2xl p-5 flex flex-col gap-2 hover:shadow-card transition relative overflow-hidden group`}
-    >
-      <div className="text-[11px] font-bold uppercase tracking-wide opacity-85">{label}</div>
-      <div className="text-2xl font-extrabold font-display">{title}</div>
-      <div className="text-sm opacity-85">{sub}</div>
-      <div className="mt-2 inline-flex items-center gap-1 text-sm font-bold">
-        {cta} <ArrowRight size={14} className="group-hover:translate-x-1 transition" />
-      </div>
-      <Icon size={120} className="absolute -right-4 -bottom-4 opacity-15 group-hover:opacity-25 transition" strokeWidth={1.2} />
-    </Link>
   );
 }

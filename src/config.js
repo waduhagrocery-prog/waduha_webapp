@@ -33,7 +33,7 @@ export const COMING_SOON_CATEGORIES = [
   { key: "home_kitchen",  label: "Home & Kitchen",icon: "Lamp" },
 ];
 
-// Each category gets an icon name (lucide-react) and a soft tint for the card.
+// Active categories — products available now.
 export const CATEGORIES = [
   { key: "fruits_vegetables", label: "Fruits & Vegetables", icon: "Salad",      tint: "bg-leaf-500/10 text-leaf-700" },
   { key: "dairy_eggs",        label: "Dairy & Eggs",        icon: "Milk",       tint: "bg-sun/15 text-yellow-700" },
@@ -45,6 +45,35 @@ export const CATEGORIES = [
   { key: "household",         label: "Household",           icon: "SprayCan",   tint: "bg-violet-500/10 text-violet-700" },
   { key: "frozen",            label: "Frozen",              icon: "Snowflake",  tint: "bg-cyan-500/10 text-cyan-700" },
   { key: "bakery",            label: "Bakery",              icon: "Croissant",  tint: "bg-yellow-500/10 text-yellow-700" },
+];
+
+// Full Lulu-style department list shown in the mega menu — current + future
+export const ALL_DEPARTMENTS = [
+  { key: "fruits_vegetables",    label: "Fresh Produce",         icon: "Salad",      active: true },
+  { key: "dairy_eggs",           label: "Dairy & Eggs",          icon: "Milk",       active: true },
+  { key: "meat_poultry",         label: "Meat & Poultry",        icon: "Drumstick",  active: true },
+  { key: "bakery",               label: "Bakery",                icon: "Croissant",  active: true },
+  { key: "rice_grains",          label: "Rice & Grains",         icon: "Wheat",      active: true },
+  { key: "spices_masala",        label: "Spices & Masala",       icon: "Flame",      active: true },
+  { key: "beverages",            label: "Beverages",             icon: "CupSoda",    active: true },
+  { key: "snacks",               label: "Snacks",                icon: "Cookie",     active: true },
+  { key: "household",            label: "Household",             icon: "SprayCan",   active: true },
+  { key: "frozen",               label: "Frozen Food",           icon: "Snowflake",  active: true },
+  { key: "world_foods",          label: "World Foods",           icon: "Globe",      active: true, alias: "spices_masala" },
+  { key: "indian_choice",        label: "Indian Food",           icon: "Utensils",   active: true, alias: "spices_masala" },
+  { key: "personal_care",        label: "Personal Care",         icon: "Sparkles",   active: false },
+  { key: "beauty",               label: "Beauty & Fragrance",    icon: "Gem",        active: false },
+  { key: "baby",                 label: "Baby & Kids",           icon: "Baby",       active: false },
+  { key: "pet_care",             label: "Pet Care",              icon: "PawPrint",   active: false },
+  { key: "home_kitchen",         label: "Home & Kitchen",        icon: "Lamp",       active: false },
+  { key: "home_appliances",      label: "Home Appliances",       icon: "WashingMachine", active: false },
+  { key: "electronics",          label: "Electronics",           icon: "Smartphone", active: false },
+  { key: "tv_audio",             label: "TV & Audio",            icon: "Tv",         active: false },
+  { key: "toys_games",           label: "Toys & Games",          icon: "Gamepad2",   active: false },
+  { key: "sports_fitness",       label: "Sports & Fitness",      icon: "Dumbbell",   active: false },
+  { key: "books_stationery",     label: "Books & Stationery",    icon: "BookOpen",   active: false },
+  { key: "home_furnishing",      label: "Home Furnishing",       icon: "Sofa",       active: false },
+  { key: "camping_outdoor",      label: "Camping & Outdoor",     icon: "Tent",       active: false },
 ];
 
 export const categoryLabel = (key) =>
