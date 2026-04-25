@@ -1,78 +1,79 @@
+import { Phone, MessageCircle, MapPin, Clock, Truck } from "lucide-react";
 import { STORE } from "../config.js";
 
 export default function Contact() {
   return (
-    <main className="max-w-4xl mx-auto px-4 py-10">
-      <h1 className="text-3xl sm:text-4xl font-extrabold text-brand-ink mb-2">
-        Get in Touch
-      </h1>
-      <p className="text-gray-600 mb-8">
-        We're open 24 hours — call, message, or visit us anytime.
-      </p>
-
-      <div className="grid sm:grid-cols-2 gap-4 mb-8">
-        <a
-          href={`tel:${STORE.phone1}`}
-          className="bg-brand-green hover:bg-brand-dark text-white p-6 rounded-xl font-bold text-center"
-        >
-          <div className="text-4xl mb-2">📞</div>
-          <div className="text-sm opacity-90">Call us</div>
-          <div className="text-xl">{STORE.phoneDisplay1}</div>
-        </a>
-        <a
-          href={`https://wa.me/${STORE.whatsapp}`}
-          target="_blank"
-          rel="noreferrer"
-          className="bg-brand-red hover:bg-red-700 text-white p-6 rounded-xl font-bold text-center"
-        >
-          <div className="text-4xl mb-2">💬</div>
-          <div className="text-sm opacity-90">WhatsApp</div>
-          <div className="text-xl">Chat Now</div>
-        </a>
-      </div>
-
-      <div className="bg-brand-yellow rounded-xl p-6 mb-6">
-        <h2 className="font-extrabold text-brand-dark text-xl mb-2">
-          🛵 Fast & Free Delivery
-        </h2>
-        <p className="text-brand-dark text-sm">
-          We deliver across Karama and nearby areas — usually within 30 minutes
-          of your order. No minimum.
+    <main className="bg-cream-50 min-h-screen">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 py-12">
+        <h1 className="text-4xl sm:text-5xl font-extrabold text-ink-900 font-display mb-2">
+          Get in Touch
+        </h1>
+        <p className="text-ink-500 mb-8">
+          Open 24 hours — call, message, or visit us anytime.
         </p>
-      </div>
 
-      <div className="bg-white border border-gray-200 rounded-xl p-6 mb-6">
-        <h2 className="font-extrabold text-brand-ink text-xl mb-3">
-          📍 Our Store
-        </h2>
-        <p className="text-gray-700 leading-relaxed">
-          <strong>{STORE.name}</strong> ({STORE.arabicName})
-          <br />
-          {STORE.address}
-          <br />
-          <span className="inline-block mt-2 bg-brand-green text-white px-3 py-1 rounded font-bold text-sm">
-            Open 24 Hours
-          </span>
-        </p>
-        <div className="mt-4 grid sm:grid-cols-2 gap-3 text-sm">
-          <div>
-            <span className="font-bold text-brand-green">Phone 1:</span>{" "}
-            <a
-              href={`tel:${STORE.phone1}`}
-              className="hover:underline text-brand-ink"
-            >
+        <div className="grid sm:grid-cols-2 gap-3 mb-6">
+          <a
+            href={`tel:${STORE.phone1}`}
+            className="bg-white border border-ink-200 hover:border-coral-500 rounded-2xl p-6 group transition"
+          >
+            <div className="w-10 h-10 rounded-xl bg-coral-500/10 text-coral-500 flex items-center justify-center mb-3">
+              <Phone size={20} />
+            </div>
+            <div className="text-xs font-semibold text-ink-500 uppercase tracking-wide">Call us</div>
+            <div className="text-xl font-bold text-ink-900 mt-1 group-hover:text-coral-500 transition">
               {STORE.phoneDisplay1}
-            </a>
+            </div>
+            <div className="text-sm text-ink-500 mt-0.5">{STORE.phoneDisplay2}</div>
+          </a>
+          <a
+            href={`https://wa.me/${STORE.whatsapp}`}
+            target="_blank"
+            rel="noreferrer"
+            className="bg-leaf-500 hover:bg-leaf-600 text-white rounded-2xl p-6 group transition"
+          >
+            <div className="w-10 h-10 rounded-xl bg-white/15 flex items-center justify-center mb-3">
+              <MessageCircle size={20} />
+            </div>
+            <div className="text-xs font-semibold opacity-85 uppercase tracking-wide">WhatsApp</div>
+            <div className="text-xl font-bold mt-1">Chat with us now →</div>
+            <div className="text-sm opacity-85 mt-0.5">Order, ask, or get a quote</div>
+          </a>
+        </div>
+
+        <div className="grid sm:grid-cols-2 gap-3 mb-6">
+          <div className="bg-white border border-ink-200 rounded-2xl p-6">
+            <div className="w-10 h-10 rounded-xl bg-leaf-500/10 text-leaf-600 flex items-center justify-center mb-3">
+              <Truck size={20} />
+            </div>
+            <div className="font-bold text-ink-900">Free & Fast Delivery</div>
+            <p className="text-sm text-ink-500 mt-1">
+              Across Al Karama and nearby — usually within 30 minutes. No minimum.
+            </p>
           </div>
-          <div>
-            <span className="font-bold text-brand-green">Phone 2:</span>{" "}
-            <a
-              href={`tel:${STORE.phone2}`}
-              className="hover:underline text-brand-ink"
-            >
-              {STORE.phoneDisplay2}
-            </a>
+          <div className="bg-white border border-ink-200 rounded-2xl p-6">
+            <div className="w-10 h-10 rounded-xl bg-coral-500/10 text-coral-500 flex items-center justify-center mb-3">
+              <Clock size={20} />
+            </div>
+            <div className="font-bold text-ink-900">Open 24 Hours</div>
+            <p className="text-sm text-ink-500 mt-1">
+              Need something at 3 AM? We're open. Just give us a call.
+            </p>
           </div>
+        </div>
+
+        <div className="bg-white border border-ink-200 rounded-2xl p-6">
+          <div className="flex items-center gap-2 text-coral-500 text-xs font-bold uppercase tracking-wide mb-2">
+            <MapPin size={14} /> Visit Us
+          </div>
+          <div className="text-xl font-extrabold text-ink-900 font-display mb-1">
+            {STORE.name} <span className="text-ink-400 text-base font-medium">— {STORE.arabicName}</span>
+          </div>
+          <p className="text-ink-500 text-sm leading-relaxed">
+            {STORE.fullName}
+            <br />
+            {STORE.address}
+          </p>
         </div>
       </div>
     </main>

@@ -5,10 +5,23 @@
 html, body, #root {
   margin: 0;
   padding: 0;
-  background: #ffffff;
-  color: #1A1A1A;
+  background: #FDFBF7;
+  color: #0F0F10;
   font-family: Inter, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 * { box-sizing: border-box; }
+
+h1, h2, h3 {
+  font-family: "Plus Jakarta Sans", Inter, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+/* subtle pulse for live activity dot */
+@keyframes pulseDot {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.5; transform: scale(1.2); }
+}
+.live-dot { animation: pulseDot 1.6s ease-in-out infinite; }
