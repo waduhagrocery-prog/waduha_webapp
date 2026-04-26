@@ -7,6 +7,7 @@ import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import Cart from "./pages/Cart.jsx";
 import Contact from "./pages/Contact.jsx";
+import ComingSoon from "./pages/ComingSoon.jsx";
 import { STORE } from "./config.js";
 
 function ScrollToTop() {
@@ -26,6 +27,7 @@ export default function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/coming-soon" element={<ComingSoon />} />
           <Route path="*" element={
             <div className="text-center py-32">
               <h1 className="text-5xl font-extrabold font-display text-ink-900">404</h1>

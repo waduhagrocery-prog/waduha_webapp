@@ -9,12 +9,10 @@ import products from "../products.json";
 import { CATEGORIES, ALL_DEPARTMENTS, STORE } from "../config.js";
 import ProductCard from "../components/ProductCard.jsx";
 import ProductRow from "../components/ProductRow.jsx";
-import PromoBanners from "../components/PromoBanners.jsx";
 import BrandShowcase from "../components/BrandShowcase.jsx";
 import ComingSoonRow from "../components/ComingSoonRow.jsx";
-
-const HERO_IMG =
-  "https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=1200&q=80";
+import HeroLayout from "../components/HeroLayout.jsx";
+import CategoryTileGrid from "../components/CategoryTileGrid.jsx";
 
 // Helper: shuffle by category, with fallback
 const byCat = (cat, n = 12) => products.filter((p) => p.category === cat).slice(0, n);
@@ -54,8 +52,14 @@ export default function Home() {
 
   return (
     <main>
-      {/* ─── HERO ─────────────────────────────────────────────── */}
-      <section className="bg-cream-50">
+      {/* ─── HERO (3-column carousel + coupons + bank offers) ─── */}
+      <HeroLayout />
+
+      {/* ─── CATEGORY TILE GRID (photo-based, Lulu-style) ─────── */}
+      <CategoryTileGrid />
+
+      {/* ─── (legacy hero kept hidden for now — could be removed) */}
+      <section className="bg-cream-50 hidden">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 grid lg:grid-cols-2 gap-10 items-center">
           <div>
             <div className="inline-flex items-center gap-2 bg-coral-500/10 text-coral-700 font-semibold px-3 py-1.5 rounded-full text-xs">
@@ -113,9 +117,6 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ─── 3 PROMO BANNERS ──────────────────────────────────── */}
-      <PromoBanners />
-
       {/* ─── TOP DEALS ────────────────────────────────────────── */}
       <ProductRow
         title="Top Deals"
@@ -126,35 +127,6 @@ export default function Home() {
         products={topDeals}
         viewAllTo="/products"
       />
-
-      {/* ─── CATEGORIES GRID ──────────────────────────────────── */}
-      <section className="bg-cream-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10">
-          <div className="flex items-end justify-between mb-5">
-            <div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-ink-900 font-display">Shop by Category</h2>
-              <p className="text-ink-500 text-sm mt-1">Everything your kitchen needs</p>
-            </div>
-            <Link to="/products" className="text-coral-500 hover:text-coral-600 font-semibold text-xs flex items-center gap-1">
-              View All <ArrowRight size={12} />
-            </Link>
-          </div>
-          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-3">
-            {CATEGORIES.map((c) => {
-              const Icon = Icons[c.icon] || ShoppingBag;
-              return (
-                <Link key={c.key} to={`/products?cat=${c.key}`}
-                  className="bg-white border border-ink-200 hover:border-coral-500 rounded-2xl p-4 sm:p-5 text-center transition group">
-                  <div className={`w-12 h-12 mx-auto rounded-xl ${c.tint} flex items-center justify-center mb-3 group-hover:scale-110 transition`}>
-                    <Icon size={22} strokeWidth={2} />
-                  </div>
-                  <div className="text-xs sm:text-sm font-semibold text-ink-900">{c.label}</div>
-                </Link>
-              );
-            })}
-          </div>
-        </div>
-      </section>
 
       {/* ─── BENTO: MOST DEMANDED ─────────────────────────────── */}
       <section className="bg-cream-50">
