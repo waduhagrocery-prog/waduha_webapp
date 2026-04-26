@@ -58,65 +58,6 @@ export default function Home() {
       {/* ─── CATEGORY TILE GRID (photo-based, Lulu-style) ─────── */}
       <CategoryTileGrid />
 
-      {/* ─── (legacy hero kept hidden for now — could be removed) */}
-      <section className="bg-cream-50 hidden">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 sm:py-14 grid lg:grid-cols-2 gap-10 items-center">
-          <div>
-            <div className="inline-flex items-center gap-2 bg-coral-500/10 text-coral-700 font-semibold px-3 py-1.5 rounded-full text-xs">
-              <span className="w-2 h-2 rounded-full bg-coral-500 live-dot" />
-              Now Delivering in Al Karama
-            </div>
-            <h1 className="mt-5 text-5xl sm:text-6xl font-extrabold text-ink-900 leading-[1.05] font-display">
-              Everything for your home,
-              <br /><span className="text-coral-500">delivered fast.</span>
-            </h1>
-            <p className="mt-5 text-ink-500 text-base sm:text-lg max-w-md leading-relaxed">
-              {STORE.name} — your neighborhood store in Al Karama. Groceries today, everything tomorrow.
-            </p>
-            <div className="mt-6 flex flex-wrap gap-3">
-              <Link to="/products" className="bg-coral-500 hover:bg-coral-600 text-white font-semibold px-6 py-3 rounded-full text-sm flex items-center gap-2 shadow-soft">
-                Shop Now <ArrowRight size={16} />
-              </Link>
-              <Link to="/contact" className="bg-white border border-ink-200 hover:border-ink-400 text-ink-900 font-semibold px-6 py-3 rounded-full text-sm">
-                Our Story
-              </Link>
-            </div>
-            <div className="mt-8 grid grid-cols-3 gap-2 max-w-lg">
-              {[
-                { icon: Truck, title: "Free Delivery", sub: "In Al Karama" },
-                { icon: Zap, title: "Express", sub: "Under 30 mins" },
-                { icon: ShoppingBag, title: "Also on Noon", sub: "& Amazon.ae" },
-              ].map((t) => (
-                <div key={t.title} className="bg-white border border-ink-200 rounded-xl p-3 flex items-start gap-2">
-                  <div className="w-8 h-8 rounded-lg bg-coral-500/10 text-coral-600 flex items-center justify-center shrink-0">
-                    <t.icon size={16} />
-                  </div>
-                  <div className="leading-tight">
-                    <div className="text-xs font-bold text-ink-900">{t.title}</div>
-                    <div className="text-[11px] text-ink-500">{t.sub}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="relative">
-            <div className="relative rounded-3xl overflow-hidden shadow-card aspect-[4/3] bg-ink-100">
-              <img src={HERO_IMG} alt="Fresh groceries" className="w-full h-full object-cover" onError={(e)=>(e.currentTarget.style.display="none")} />
-              <div className="absolute inset-0 bg-gradient-to-tr from-black/30 via-transparent to-transparent" />
-            </div>
-            <div className="absolute bottom-5 left-5 sm:left-7 bg-white rounded-2xl shadow-card border border-ink-200 px-4 py-3 max-w-[230px]">
-              <div className="flex items-center gap-2 text-xs font-semibold text-leaf-600">
-                <span className="w-2 h-2 rounded-full bg-leaf-500 live-dot" />
-                Live from Al Karama
-              </div>
-              <div className="mt-1 text-sm font-bold text-ink-900 leading-snug">
-                Orders packing now —<br />delivery in 20 min
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
       {/* ─── TOP DEALS ────────────────────────────────────────── */}
       <ProductRow
         title="Top Deals"
