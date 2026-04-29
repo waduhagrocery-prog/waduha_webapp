@@ -2,13 +2,66 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Waduha — Everything for your home, delivered fast. Groceries, essentials, and more in Al Karama, Dubai. Open 24 hours. Free delivery." />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <title>Waduha — Everything for your home, delivered fast.</title>
+    <meta name="description" content="Waduha — your neighborhood hypermarket in Al Karama, Dubai. Fresh groceries, everyday essentials, fast delivery. Open 24 hours. WhatsApp ordering." />
+    <meta name="keywords" content="grocery delivery dubai, karama grocery, waduha, online grocery dubai, fresh produce dubai" />
+
+    <!-- Theme -->
     <meta name="theme-color" content="#FF6B35" />
+    <meta name="color-scheme" content="light" />
+
+    <!-- Icons -->
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+
+    <!-- Open Graph (WhatsApp/Facebook/iMessage previews) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Waduha" />
+    <meta property="og:title" content="Waduha — Everything for your home, delivered fast." />
+    <meta property="og:description" content="Fresh groceries and everyday essentials in Al Karama, Dubai. Free delivery, 24-hour service." />
+    <meta property="og:url" content="https://karama-pantry-web.vercel.app/" />
+    <meta property="og:image" content="https://karama-pantry-web.vercel.app/apple-touch-icon.svg" />
+    <meta property="og:locale" content="en_AE" />
+    <meta property="og:locale:alternate" content="ar_AE" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Waduha — Everything for your home, delivered fast." />
+    <meta name="twitter:description" content="Fresh groceries and everyday essentials in Al Karama, Dubai." />
+    <meta name="twitter:image" content="https://karama-pantry-web.vercel.app/apple-touch-icon.svg" />
+
+    <!-- Schema.org LocalBusiness markup — improves Google search + Maps results -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": ["LocalBusiness", "GroceryStore"],
+      "name": "Waduha Grocery Store",
+      "alternateName": "Waduha",
+      "description": "Neighborhood hypermarket — fresh groceries and everyday essentials with fast delivery in Al Karama, Dubai.",
+      "url": "https://karama-pantry-web.vercel.app/",
+      "telephone": ["+971563786754", "+971527283484"],
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Al Karama",
+        "addressLocality": "Dubai",
+        "addressCountry": "AE"
+      },
+      "openingHours": "Mo-Su 00:00-23:59",
+      "priceRange": "$",
+      "currenciesAccepted": "AED",
+      "paymentAccepted": ["Cash", "Visa", "Mastercard", "Apple Pay"],
+      "hasMap": "https://maps.app.goo.gl/mQLdR6azw9JaKbVj6"
+    }
+    </script>
+
+    <!-- Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preconnect" href="https://images.unsplash.com" />
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet" />
-    <title>Waduha — Everything for your home, delivered fast.</title>
   </head>
   <body>
     <div id="root"></div>

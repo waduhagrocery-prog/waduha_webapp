@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import * as Icons from "lucide-react";
 import { Plus, Minus, Heart } from "lucide-react";
 import { useCart } from "../cart.jsx";
+import { useWishlist } from "../wishlist.jsx";
 import { CATEGORIES, categoryLabel } from "../config.js";
 
 const badgeStyle = {
@@ -26,8 +28,10 @@ const iconFor = (catKey) => {
 
 export default function ProductCard({ product, variant = "default" }) {
   const { items, add, setQty } = useCart();
+  const { has: inWishlist, toggle: toggleWish } = useWishlist();
   const inCart = items.find((i) => i.id === product.id);
   const Icon = iconFor(product.category);
+  const wished = inWishlist(product.id);
 
   const hasDiscount = product.compare_price && product.compare_price > product.price;
   const discountPct = hasDiscount
@@ -37,10 +41,12 @@ export default function ProductCard({ product, variant = "default" }) {
   const big = variant === "big";
   const compact = variant === "compact";
 
+  const detailHref = `/products/${product.id}`;
+
   return (
     <div className={`group bg-white border border-ink-200 hover:border-coral-500 rounded-2xl overflow-hidden flex flex-col transition ${big ? "h-full" : ""}`}>
-      {/* Image area */}
-      <div className={`relative bg-cream-100 flex items-center justify-center overflow-hidden ${big ? "aspect-[4/5] md:aspect-auto md:flex-1 md:min-h-[280px]" : "aspect-square"}`}>
+      {/* Image area — entire image links to detail page */}
+      <Link to={detailHref} className={`relative bg-cream-100 flex items-center justify-center overflow-hidden ${big ? "aspect-[4/5] md:aspect-auto md:flex-1 md:min-h-[280px]" : "aspect-square"}`}>
         {product.image_url ? (
           <img
             src={product.image_url}
@@ -71,14 +77,15 @@ export default function ProductCard({ product, variant = "default" }) {
         {/* Stock dot (live availability indicator like Lulu) */}
         <span className={`absolute ${product.badge ? "bottom-2" : "top-2"} ${product.badge ? "left-2" : "right-2"} w-2 h-2 rounded-full ${product.in_stock ? "bg-leaf-500" : "bg-ink-400"} hidden`} />
 
-        {/* Wishlist (decorative for now) */}
+        {/* Wishlist toggle */}
         <button
-          aria-label="Wishlist"
-          className="absolute top-2 right-2 w-8 h-8 rounded-full bg-white/80 backdrop-blur border border-ink-200 text-ink-700 hover:text-coral-500 flex items-center justify-center opacity-0 group-hover:opacity-100 transition"
-          style={{ display: hasDiscount ? "none" : "" }}
-          onClick={(e) => e.preventDefault()}
+          aria-label={wished ? "Remove from wishlist" : "Add to wishlist"}
+          className={`absolute ${hasDiscount ? "bottom-2" : "top-2"} right-2 w-8 h-8 rounded-full bg-white/90 backdrop-blur border border-ink-200 flex items-center justify-center transition ${
+            wished ? "text-coral-500 opacity-100" : "text-ink-700 hover:text-coral-500 opacity-0 group-hover:opacity-100"
+          }`}
+          onClick={(e) => { e.preventDefault(); e.stopPropagation(); toggleWish(product.id); }}
         >
-          <Heart size={14} />
+          <Heart size={14} fill={wished ? "currentColor" : "none"} />
         </button>
 
         {!product.in_stock && (
@@ -86,16 +93,18 @@ export default function ProductCard({ product, variant = "default" }) {
             <span className="bg-ink-900 text-white text-xs font-bold px-3 py-1 rounded-full">Out of Stock</span>
           </div>
         )}
-      </div>
+      </Link>
 
       {/* Body */}
       <div className={`flex flex-col gap-1 ${compact ? "p-2.5" : "p-3 sm:p-4"}`}>
         <div className={`font-semibold uppercase tracking-wide text-ink-500 ${compact ? "text-[9px]" : "text-[10px]"}`}>
           {categoryLabel(product.category)}
         </div>
-        <h3 className={`font-bold text-ink-900 leading-snug line-clamp-2 ${big ? "text-lg" : compact ? "text-xs min-h-[2.4em]" : "text-sm"}`}>
-          {product.name}
-        </h3>
+        <Link to={detailHref} className="block">
+          <h3 className={`font-bold text-ink-900 leading-snug line-clamp-2 hover:text-coral-500 transition ${big ? "text-lg" : compact ? "text-xs min-h-[2.4em]" : "text-sm"}`}>
+            {product.name}
+          </h3>
+        </Link>
         {product.unit && !compact && (
           <div className="text-xs text-ink-500">{product.unit}</div>
         )}

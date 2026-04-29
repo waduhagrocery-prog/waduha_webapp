@@ -13,6 +13,7 @@ import BrandShowcase from "../components/BrandShowcase.jsx";
 import ComingSoonRow from "../components/ComingSoonRow.jsx";
 import HeroLayout from "../components/HeroLayout.jsx";
 import CategoryTileGrid from "../components/CategoryTileGrid.jsx";
+import { useRecentlyViewed } from "../recentlyViewed.jsx";
 
 // Helper: shuffle by category, with fallback
 const byCat = (cat, n = 12) => products.filter((p) => p.category === cat).slice(0, n);
@@ -22,6 +23,12 @@ const byKeyword = (kw, n = 12) => {
 };
 
 export default function Home() {
+  const { ids: recentIds } = useRecentlyViewed();
+  const recentlyViewed = useMemo(
+    () => recentIds.map((id) => products.find((p) => p.id === id)).filter(Boolean),
+    [recentIds]
+  );
+
   // Featured = top items for the bento grid
   const featured = useMemo(() => products.slice(0, 7), []);
   const big = featured[0];
@@ -133,6 +140,19 @@ export default function Home() {
       <ProductRow title="Fresh Produce"       subtitle="Fruits & vegetables"               icon="Salad"         products={fresh}        viewAllTo="/products?cat=fruits_vegetables" />
       <ProductRow title="Budget Buys"         subtitle="Everything under AED 5"            badge="Save More"    icon="Tag"           products={budgetBuys}    viewAllTo="/products" />
       <ProductRow title="Premium Picks"       subtitle="Top-shelf items for special meals" badge="Premium"      icon="Award"        badgeColor="ink" products={premiumPicks} viewAllTo="/products" />
+
+      {/* Recently viewed — only renders if user has viewed any products */}
+      {recentlyViewed.length > 0 && (
+        <ProductRow
+          title="Recently Viewed"
+          subtitle="Pick up where you left off"
+          icon="Clock"
+          badge="For You"
+          badgeColor="ink"
+          products={recentlyViewed}
+          viewAllTo="/products"
+        />
+      )}
 
       {/* ─── COMING SOON DEPARTMENTS (Lulu-style placeholders) ── */}
       <ComingSoonRow
