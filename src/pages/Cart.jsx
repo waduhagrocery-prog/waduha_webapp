@@ -230,9 +230,19 @@ export default function Cart() {
             <button type="submit" className="w-full bg-coral-500 hover:bg-coral-600 text-white font-bold py-3 rounded-full flex items-center justify-center gap-2 shadow-soft">
               <MessageCircle size={16} /> Place Order on WhatsApp
             </button>
-            <p className="text-[11px] text-ink-500 text-center">
-              You'll be redirected to WhatsApp to confirm with the store.
-            </p>
+
+            {/* Why WhatsApp — trust reassurance */}
+            <div className="bg-leaf-500/[0.06] border border-leaf-500/20 rounded-xl p-3 text-xs">
+              <div className="flex items-center gap-1.5 font-bold text-leaf-700 mb-1">
+                <MessageCircle size={12} /> Why WhatsApp?
+              </div>
+              <ul className="space-y-1 text-ink-700 leading-snug">
+                <li className="flex gap-1.5"><span className="text-leaf-600 shrink-0">✓</span> We confirm stock & freshness before sending</li>
+                <li className="flex gap-1.5"><span className="text-leaf-600 shrink-0">✓</span> Pay cash or card on delivery — no online card needed</li>
+                <li className="flex gap-1.5"><span className="text-leaf-600 shrink-0">✓</span> Get a real person (not a bot) — call us if anything's wrong</li>
+                <li className="flex gap-1.5"><span className="text-leaf-600 shrink-0">✓</span> Free delivery in Al Karama, usually within 30 min</li>
+              </ul>
+            </div>
           </form>
         </div>
       </div>
