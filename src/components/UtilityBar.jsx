@@ -9,13 +9,18 @@ export default function UtilityBar() {
   return (
     <div className="bg-cream-100 border-b border-ink-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-1.5 flex items-center justify-between gap-3 text-xs">
-        {/* Left: location */}
-        <button className="flex items-center gap-1.5 font-semibold text-ink-700 hover:text-coral-500 transition shrink-0">
+        {/* Left: location (links to Google Maps) */}
+        <a
+          href={STORE.mapUrl}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-1.5 font-semibold text-ink-700 hover:text-coral-500 transition shrink-0"
+        >
           <MapPin size={14} className="text-coral-500" />
           <span className="hidden sm:inline">Deliver to:</span>
           <span className="text-ink-900">{STORE.location}</span>
           <ChevronDown size={12} />
-        </button>
+        </a>
 
         {/* Center: delivery options pill */}
         <div className="hidden md:flex items-center bg-white border border-ink-200 rounded-full p-0.5 gap-0.5">

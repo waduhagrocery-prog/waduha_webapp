@@ -12,6 +12,9 @@ export const STORE = {
   phoneDisplay2: "052 728 3484",
   whatsapp: "971563786754",
   address: "Al Karama, Dubai, UAE",
+  mapUrl: "https://maps.app.goo.gl/mQLdR6azw9JaKbVj6",
+  // Embed-friendly query — Google Maps embeds without API key when output=embed
+  mapEmbedUrl: "https://maps.google.com/maps?q=Waduha%20Grocery%20Store%20Karama%20Dubai&t=&z=16&ie=UTF8&iwloc=&output=embed",
   hours: "Open 24 Hours",
   hoursShort: "7 AM – 12 AM, Daily",
   deliveryFee: 0,

@@ -1,4 +1,4 @@
-import { Phone, MessageCircle, MapPin, Clock, Truck } from "lucide-react";
+import { Phone, MessageCircle, MapPin, Clock, Truck, Navigation, ExternalLink } from "lucide-react";
 import { STORE } from "../config.js";
 
 export default function Contact() {
@@ -62,18 +62,52 @@ export default function Contact() {
           </div>
         </div>
 
-        <div className="bg-white border border-ink-200 rounded-2xl p-6">
-          <div className="flex items-center gap-2 text-coral-500 text-xs font-bold uppercase tracking-wide mb-2">
-            <MapPin size={14} /> Visit Us
+        <div className="bg-white border border-ink-200 rounded-2xl overflow-hidden">
+          <div className="p-6 pb-4">
+            <div className="flex items-center gap-2 text-coral-500 text-xs font-bold uppercase tracking-wide mb-2">
+              <MapPin size={14} /> Visit Us
+            </div>
+            <div className="text-xl font-extrabold text-ink-900 font-display mb-1">
+              {STORE.name} <span className="text-ink-400 text-base font-medium">— {STORE.arabicName}</span>
+            </div>
+            <p className="text-ink-500 text-sm leading-relaxed">
+              {STORE.fullName}
+              <br />
+              {STORE.address}
+            </p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <a
+                href={STORE.mapUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 bg-coral-500 hover:bg-coral-600 text-white font-bold text-sm px-4 py-2.5 rounded-full"
+              >
+                <Navigation size={14} />
+                Get Directions
+              </a>
+              <a
+                href={STORE.mapUrl}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 bg-white border border-ink-200 hover:border-coral-500 text-ink-900 font-bold text-sm px-4 py-2.5 rounded-full"
+              >
+                Open in Google Maps <ExternalLink size={12} />
+              </a>
+            </div>
           </div>
-          <div className="text-xl font-extrabold text-ink-900 font-display mb-1">
-            {STORE.name} <span className="text-ink-400 text-base font-medium">— {STORE.arabicName}</span>
+
+          {/* Embedded map */}
+          <div className="border-t border-ink-200">
+            <iframe
+              src={STORE.mapEmbedUrl}
+              title={`${STORE.name} location`}
+              loading="lazy"
+              className="w-full h-72 sm:h-80 block"
+              style={{ border: 0 }}
+              allowFullScreen
+              referrerPolicy="no-referrer-when-downgrade"
+            />
           </div>
-          <p className="text-ink-500 text-sm leading-relaxed">
-            {STORE.fullName}
-            <br />
-            {STORE.address}
-          </p>
         </div>
       </div>
     </main>
