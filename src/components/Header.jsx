@@ -35,7 +35,7 @@ export default function Header() {
       <div className="border-b border-ink-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center gap-4">
           <Link to="/" className="flex items-center gap-2.5 shrink-0">
-            <img src="/logo.svg" alt="Waduha Grocery" className="w-12 h-12 shrink-0" />
+            <img src="/logo.png" alt="Waduha Grocery" className="w-12 h-12 shrink-0" />
             <div className="hidden sm:block leading-tight">
               <div className="font-extrabold text-lg text-ink-900 font-display">{STORE.name} <span className="text-leaf-600">Grocery</span></div>
               <div className="text-[10px] text-ink-500 font-semibold uppercase tracking-wider">24/7 · Karama, Dubai</div>

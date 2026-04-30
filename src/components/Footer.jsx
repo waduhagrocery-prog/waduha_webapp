@@ -40,7 +40,7 @@ export default function Footer() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
           <Link to="/" className="flex items-center gap-2.5 mb-3">
-            <img src="/logo.svg" alt="Waduha Grocery" className="w-12 h-12 bg-white rounded-full p-0.5" />
+            <img src="/logo.png" alt="Waduha Grocery" className="w-12 h-12 rounded-full" />
             <div className="font-extrabold text-lg font-display">{STORE.name} <span className="text-leaf-400">Grocery</span></div>
           </Link>
           <p className="text-sm text-ink-400 leading-relaxed">

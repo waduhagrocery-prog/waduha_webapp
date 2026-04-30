@@ -9,8 +9,9 @@
   "background_color": "#FDFBF7",
   "theme_color": "#5BA822",
   "icons": [
-    { "src": "/favicon.svg",          "sizes": "any",    "type": "image/svg+xml", "purpose": "any" },
-    { "src": "/apple-touch-icon.svg", "sizes": "180x180","type": "image/svg+xml", "purpose": "any maskable" }
+    { "src": "/logo-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "/logo-180.png", "sizes": "180x180", "type": "image/png", "purpose": "any" },
+    { "src": "/logo.png",     "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
   ],
   "categories": ["shopping", "food", "lifestyle"],
   "lang": "en"
