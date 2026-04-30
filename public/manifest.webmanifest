@@ -1,17 +1,17 @@
 {
-  "name": "Waduha — Everything for your home",
+  "name": "Waduha Grocery — 24/7 Karama Dubai",
   "short_name": "Waduha",
-  "description": "Fresh groceries and everyday essentials, delivered fast across Al Karama, Dubai.",
+  "description": "Your 24/7 neighborhood grocery in Karama, Dubai. Free home delivery, fresh produce, all items at discounted prices.",
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#FDFBF7",
-  "theme_color": "#FF6B35",
+  "theme_color": "#5BA822",
   "icons": [
-    { "src": "/favicon.svg",         "sizes": "any",   "type": "image/svg+xml", "purpose": "any" },
-    { "src": "/apple-touch-icon.svg","sizes": "180x180","type": "image/svg+xml", "purpose": "any maskable" }
+    { "src": "/favicon.svg",          "sizes": "any",    "type": "image/svg+xml", "purpose": "any" },
+    { "src": "/apple-touch-icon.svg", "sizes": "180x180","type": "image/svg+xml", "purpose": "any maskable" }
   ],
-  "categories": ["shopping", "food"],
+  "categories": ["shopping", "food", "lifestyle"],
   "lang": "en"
 }

@@ -1,28 +1,28 @@
 // Store config — change these and the whole site updates.
 export const STORE = {
   name: "Waduha",
-  fullName: "Waduha Grocery Store L.L.C S.O.C", // legal name, used in footer fine print
+  fullName: "Waduha Grocery Store L.L.C S.O.C",
   tagline: "Everything for your home, delivered fast",
   taglineShort: "Everything. Delivered.",
   arabicName: "الضحى",
-  location: "Al Karama, Dubai",
+  location: "Karama, Dubai",
   phone1: "+971563786754",
   phone2: "+971527283484",
   phoneDisplay1: "056 378 6754",
   phoneDisplay2: "052 728 3484",
   whatsapp: "971563786754",
-  address: "Al Karama, Dubai, UAE",
+  address: "Behind Sangeetha Restaurant, Sheikh Hamdan Colony, Karama, Dubai, UAE",
+  addressShort: "Behind Sangeetha Restaurant, Karama",
   mapUrl: "https://maps.app.goo.gl/mQLdR6azw9JaKbVj6",
-  // Embed-friendly query — Google Maps embeds without API key when output=embed
-  mapEmbedUrl: "https://maps.google.com/maps?q=Waduha%20Grocery%20Store%20Karama%20Dubai&t=&z=16&ie=UTF8&iwloc=&output=embed",
-  hours: "Open 24 Hours",
-  hoursShort: "7 AM – 12 AM, Daily",
+  mapEmbedUrl: "https://maps.google.com/maps?q=Waduha%20Grocery%20Store%20Sheikh%20Hamdan%20Colony%20Karama%20Dubai&t=&z=17&ie=UTF8&iwloc=&output=embed",
+  hours: "Open 24/7",
+  hoursShort: "Open 24 Hours · 7 Days",
   deliveryFee: 0,
   currency: "AED",
+  acceptedPayments: ["Cash on Delivery", "Visa", "Mastercard"],
   socials: {
-    instagram: "https://instagram.com/",
-    tiktok: "https://tiktok.com/",
-    facebook: "https://facebook.com/",
+    facebook:  "https://www.facebook.com/share/18YDAdqG7T/",
+    instagram: "https://www.instagram.com/waduha_grocery",
   },
 };
 

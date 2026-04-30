@@ -5,7 +5,6 @@ import { STORE } from "../config.js";
 export default function Footer() {
   const social = [
     { glyph: "IG", label: "Instagram", href: STORE.socials.instagram, color: "bg-pink-500" },
-    { glyph: "TT", label: "TikTok",    href: STORE.socials.tiktok,    color: "bg-ink-900" },
     { glyph: "FB", label: "Facebook",  href: STORE.socials.facebook,  color: "bg-blue-600" },
     { glyph: "WA", label: "WhatsApp",  href: `https://wa.me/${STORE.whatsapp}`, color: "bg-leaf-500" },
   ];
@@ -40,13 +39,14 @@ export default function Footer() {
       {/* Columns */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 py-10 grid sm:grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
-          <Link to="/" className="flex items-center gap-2 mb-3">
-            <div className="w-9 h-9 rounded-xl bg-leaf-500 text-white flex items-center justify-center font-extrabold">W</div>
-            <div className="font-extrabold text-lg font-display">{STORE.name}</div>
+          <Link to="/" className="flex items-center gap-2.5 mb-3">
+            <img src="/logo.svg" alt="Waduha Grocery" className="w-12 h-12 bg-white rounded-full p-0.5" />
+            <div className="font-extrabold text-lg font-display">{STORE.name} <span className="text-leaf-400">Grocery</span></div>
           </Link>
           <p className="text-sm text-ink-400 leading-relaxed">
-            {STORE.name} — your neighborhood store delivering fresh, high-demand
-            essentials across Al Karama, Dubai. Also available on Noon & Amazon.
+            Your neighborhood grocery store, open 24/7 in Karama. Fresh produce,
+            household essentials, and everything in between — at discounted
+            prices, with free home delivery.
           </p>
         </div>
 
@@ -115,11 +115,9 @@ export default function Footer() {
           <div className="text-xs text-ink-400 font-semibold uppercase tracking-wide">We Accept</div>
           <div className="flex flex-wrap gap-2">
             {[
-              { label: "Visa",       bg: "bg-blue-600" },
-              { label: "Mastercard", bg: "bg-red-600" },
-              { label: "Apple Pay",  bg: "bg-black" },
-              { label: "Mada",       bg: "bg-green-700" },
-              { label: "Cash",       bg: "bg-leaf-600" },
+              { label: "Cash on Delivery", bg: "bg-leaf-600" },
+              { label: "Visa",             bg: "bg-blue-600" },
+              { label: "Mastercard",       bg: "bg-red-600" },
             ].map((p) => (
               <span key={p.label} className={`${p.bg} text-white text-[10px] font-bold uppercase tracking-wider px-3 py-1.5 rounded-md`}>
                 {p.label}
