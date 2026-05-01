@@ -25,3 +25,21 @@ dist-ssr
 
 # Vercel
 .vercel
+
+# Capacitor native build artifacts (committed: source code only)
+ios/App/App/public/
+ios/App/Pods/
+ios/App/build/
+ios/.gradle/
+android/build/
+android/app/build/
+android/app/release/
+android/.gradle/
+android/local.properties
+android/captures/
+android/.idea/
+*.iml
+
+# Capacitor sync output (regenerated on build)
+ios/App/App/capacitor.config.json
+ios/App/App/config.xml

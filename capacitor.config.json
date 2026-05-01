@@ -1,0 +1,34 @@
+{
+  "appId": "com.waduha.grocery",
+  "appName": "Waduha Grocery",
+  "webDir": "dist",
+  "backgroundColor": "#FDFBF7",
+  "ios": {
+    "contentInset": "always",
+    "scheme": "Waduha"
+  },
+  "android": {
+    "allowMixedContent": false,
+    "buildOptions": {
+      "releaseType": "APK"
+    }
+  },
+  "plugins": {
+    "SplashScreen": {
+      "launchShowDuration": 2000,
+      "launchAutoHide": true,
+      "backgroundColor": "#FDFBF7",
+      "androidScaleType": "CENTER_CROP",
+      "showSpinner": false,
+      "iosSpinnerStyle": "small",
+      "androidSpinnerStyle": "large",
+      "splashFullScreen": false,
+      "splashImmersive": false
+    },
+    "StatusBar": {
+      "style": "DARK",
+      "backgroundColor": "#5BA822",
+      "overlaysWebView": false
+    }
+  }
+}

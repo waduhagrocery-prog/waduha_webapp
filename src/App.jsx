@@ -4,6 +4,7 @@ import { MessageCircle } from "lucide-react";
 import Header from "./components/Header.jsx";
 import Footer from "./components/Footer.jsx";
 import StickyCartBar from "./components/StickyCartBar.jsx";
+import InstallPrompt from "./components/InstallPrompt.jsx";
 import Home from "./pages/Home.jsx";
 import Products from "./pages/Products.jsx";
 import ProductDetail from "./pages/ProductDetail.jsx";
@@ -47,6 +48,9 @@ export default function App() {
 
       {/* Mobile sticky cart bar */}
       <StickyCartBar />
+
+      {/* PWA install prompt (Android Chrome + iOS Safari) */}
+      <InstallPrompt />
 
       {/* Floating WhatsApp button (above sticky bar on mobile via padding) */}
       <a

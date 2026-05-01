@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Waduha Grocery</string>
+    <string name="title_activity_main">Waduha Grocery</string>
+    <string name="package_name">com.waduha.grocery</string>
+    <string name="custom_url_scheme">com.waduha.grocery</string>
+</resources>
